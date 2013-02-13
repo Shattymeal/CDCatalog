@@ -14,6 +14,7 @@ namespace CDCatalog
         [STAThread]
         static void Main()
         {
+            //coment to test
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmCDCatalog());
