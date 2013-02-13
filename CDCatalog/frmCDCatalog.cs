@@ -45,10 +45,10 @@ namespace CDCatalog
         {
             // TODO: This line of code loads data into the 'cDCatalogDataSet1.Artist' table. You can move, or remove it, as needed.
             this.artistTableAdapter.Fill(this.cDCatalogDataSet1.Artist);
-            cmbArtist.SelectedIndex = 0;
+            //cmbArtist.SelectedIndex = 0;
             // TODO: This line of code loads data into the 'cDCatalogDataSet.Genre' table. You can move, or remove it, as needed.
             this.genreTableAdapter.Fill(this.cDCatalogDataSet.Genre);
-            cmbGenre.SelectedIndex = 0;
+            //cmbGenre.SelectedIndex = 0;
 
         }
 
