@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CDCatalogConnection;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
