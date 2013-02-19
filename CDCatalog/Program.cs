@@ -17,7 +17,7 @@ namespace CDCatalog
             //coment to test
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmCDCatalog());
+            Application.Run(new formCDCatalog());
         }
     }
 }

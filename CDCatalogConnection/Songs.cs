@@ -7,25 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CDCatalog
+namespace CDCatalogConnection
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Album
+    public partial class Songs
     {
-        public Album()
-        {
-            this.Songs = new HashSet<Song>();
-        }
-    
-        public int AlbumID { get; set; }
+        public int SongID { get; set; }
         public string Title { get; set; }
-        public int Year { get; set; }
         public int ArtistID { get; set; }
+        public Nullable<int> AlbumID { get; set; }
+        public Nullable<int> TrackNumber { get; set; }
+        public int GenreID { get; set; }
+        public int TrackLength { get; set; }
         public int Rating { get; set; }
     
+        public virtual Album Album { get; set; }
         public virtual Artist Artist { get; set; }
-        public virtual ICollection<Song> Songs { get; set; }
+        public virtual Genre Genre { get; set; }
     }
 }

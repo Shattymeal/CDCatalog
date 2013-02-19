@@ -16,7 +16,7 @@ namespace CDCatalogConnection
     {
         public Album()
         {
-            this.Songs = new HashSet<Song>();
+            this.Songs = new HashSet<Songs>();
         }
     
         public int AlbumID { get; set; }
@@ -27,6 +27,6 @@ namespace CDCatalogConnection
         public int GenreID { get; set; }
     
         public virtual Artist Artist { get; set; }
-        public virtual ICollection<Song> Songs { get; set; }
+        public virtual ICollection<Songs> Songs { get; set; }
     }
 }

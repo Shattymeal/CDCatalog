@@ -17,13 +17,13 @@ namespace CDCatalogConnection
         public Artist()
         {
             this.Albums = new HashSet<Album>();
-            this.Songs = new HashSet<Song>();
+            this.Songs = new HashSet<Songs>();
         }
     
         public int ArtistID { get; set; }
         public string Artist1 { get; set; }
     
         public virtual ICollection<Album> Albums { get; set; }
-        public virtual ICollection<Song> Songs { get; set; }
+        public virtual ICollection<Songs> Songs { get; set; }
     }
 }

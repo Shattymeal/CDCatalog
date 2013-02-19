@@ -16,12 +16,12 @@ namespace CDCatalogConnection
     {
         public Genre()
         {
-            this.Songs = new HashSet<Song>();
+            this.Songs = new HashSet<Songs>();
         }
     
         public int GenreID { get; set; }
         public string Genre1 { get; set; }
     
-        public virtual ICollection<Song> Songs { get; set; }
+        public virtual ICollection<Songs> Songs { get; set; }
     }
 }
