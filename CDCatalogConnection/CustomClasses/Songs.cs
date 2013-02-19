@@ -18,16 +18,31 @@ namespace CDCatalogConnection
                 {
                     Songs SongToAdd = new Songs();
                     SongToAdd.Title = songTitle;
-                    SongToAdd.ArtistID = Artist.ArtistCheck(songArtist);
-                    //SongToAdd.AlbumID = Album.songAlbum;
-                    SongToAdd.GenreID = Genre.GenreCheck(songGenre);
+                    SongToAdd.ArtistID = new Artist().ArtistCheck(songArtist);
+                    SongToAdd.AlbumID = new Album().AlbumCheck(songAlbum, songArtist);
+                    SongToAdd.GenreID = new Genre().GenreCheck(songGenre);
                     SongToAdd.TrackNumber = songTrackNumer;
                     SongToAdd.TrackLength = songTrackLength;
                     SongToAdd.Rating = songRating;
+                    context.Songs1.Add(SongToAdd);
+                    context.SaveChanges();
+
+                    List<Songs> AddedSong = context.Songs1.Where(s => s.Title == songTitle).ToList();
+                    return AddedSong[0].SongID;
+                }
+
+                else if (SongToFind.Count > 1)
+                {
+                    List<Songs> SongsInList = SongToFind.Where(sa => sa.ArtistID == Artist.ArtistCheck(songArtist)).ToList();
+                    return SongsInList[0].SongID;
+                }
+
+                else
+                {
+                    return SongToFind[0].SongID;
                 }
                 
             }
-            return 0;
         }
     }
 }
