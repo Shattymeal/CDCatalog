@@ -16,10 +16,10 @@ namespace CDCatalog
         public formCDCatalog()
         {
             InitializeComponent();
-            addGenreToDB();
-            addArtistToDB();
-            addAlbumToDB();
-            addSongToDB();
+            //addGenreToDB();
+            //addArtistToDB();
+            //addAlbumToDB();
+            //addSongToDB();
         }
 
         public void addGenreToDB()
@@ -67,5 +67,33 @@ namespace CDCatalog
             int ID = newSong.SongCheck(songTitle, songArtist, songAlbum, songGenre, songTrackNumber, songTrackLength, songRating);
             MessageBox.Show("The Following Song Original Don was added with ID " + ID);
         }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            //Validating Block
+        }
+
+        private void chkAlbum_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAlbum.Checked == false)
+            {
+                txtAlbumTitle.Enabled = false;
+                txtTrackNumber.Enabled = false;
+                txtTrackNumber.Text = "1";
+                txtYear.Enabled = false;
+                cmbAlbumGenre.Enabled = false;
+                txtAlbumRating.Enabled = false;
+            }
+            else if(chkAlbum.Checked)
+            {
+                txtAlbumTitle.Enabled = true;
+                txtTrackNumber.Enabled = true;
+                txtTrackNumber.Text = "1";
+                txtYear.Enabled = true;
+                cmbAlbumGenre.Enabled = true;
+                txtAlbumRating.Enabled = true;
+            }
+        }
+
     }
 }

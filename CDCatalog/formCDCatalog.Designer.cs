@@ -28,11 +28,289 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.chkAlbum = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtSongTitle = new System.Windows.Forms.TextBox();
+            this.cmbArtist = new System.Windows.Forms.ComboBox();
+            this.cmbSongGenre = new System.Windows.Forms.ComboBox();
+            this.txtLength = new System.Windows.Forms.TextBox();
+            this.txtSongRating = new System.Windows.Forms.TextBox();
+            this.txtAlbumTitle = new System.Windows.Forms.TextBox();
+            this.txtTrackNumber = new System.Windows.Forms.TextBox();
+            this.txtYear = new System.Windows.Forms.TextBox();
+            this.cmbAlbumGenre = new System.Windows.Forms.ComboBox();
+            this.txtAlbumRating = new System.Windows.Forms.TextBox();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.groupBox1.Controls.Add(this.btnSubmit);
+            this.groupBox1.Controls.Add(this.txtAlbumRating);
+            this.groupBox1.Controls.Add(this.cmbAlbumGenre);
+            this.groupBox1.Controls.Add(this.txtYear);
+            this.groupBox1.Controls.Add(this.txtTrackNumber);
+            this.groupBox1.Controls.Add(this.txtAlbumTitle);
+            this.groupBox1.Controls.Add(this.txtSongRating);
+            this.groupBox1.Controls.Add(this.txtLength);
+            this.groupBox1.Controls.Add(this.cmbSongGenre);
+            this.groupBox1.Controls.Add(this.cmbArtist);
+            this.groupBox1.Controls.Add(this.txtSongTitle);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.chkAlbum);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(273, 457);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(16, 176);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 17);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Rating:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 135);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 17);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Length (s):";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 301);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 17);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Track #:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(16, 102);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 17);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Genre:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 17);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Artist: ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Song Title:";
+            // 
+            // chkAlbum
+            // 
+            this.chkAlbum.AutoSize = true;
+            this.chkAlbum.Checked = true;
+            this.chkAlbum.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAlbum.Location = new System.Drawing.Point(16, 236);
+            this.chkAlbum.Name = "chkAlbum";
+            this.chkAlbum.Size = new System.Drawing.Size(127, 21);
+            this.chkAlbum.TabIndex = 7;
+            this.chkAlbum.Text = "Part of Album? ";
+            this.chkAlbum.UseVisualStyleBackColor = true;
+            this.chkAlbum.CheckedChanged += new System.EventHandler(this.chkAlbum_CheckedChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(16, 272);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(82, 17);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Album Title:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(16, 330);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(42, 17);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Year:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(16, 359);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(95, 17);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Album Genre:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(16, 388);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(96, 17);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "Album Rating:";
+            // 
+            // txtSongTitle
+            // 
+            this.txtSongTitle.Location = new System.Drawing.Point(118, 30);
+            this.txtSongTitle.Name = "txtSongTitle";
+            this.txtSongTitle.Size = new System.Drawing.Size(100, 22);
+            this.txtSongTitle.TabIndex = 12;
+            // 
+            // cmbArtist
+            // 
+            this.cmbArtist.FormattingEnabled = true;
+            this.cmbArtist.Location = new System.Drawing.Point(118, 63);
+            this.cmbArtist.Name = "cmbArtist";
+            this.cmbArtist.Size = new System.Drawing.Size(124, 24);
+            this.cmbArtist.TabIndex = 13;
+            // 
+            // cmbSongGenre
+            // 
+            this.cmbSongGenre.FormattingEnabled = true;
+            this.cmbSongGenre.Location = new System.Drawing.Point(118, 97);
+            this.cmbSongGenre.Name = "cmbSongGenre";
+            this.cmbSongGenre.Size = new System.Drawing.Size(121, 24);
+            this.cmbSongGenre.TabIndex = 14;
+            // 
+            // txtLength
+            // 
+            this.txtLength.Location = new System.Drawing.Point(118, 130);
+            this.txtLength.Name = "txtLength";
+            this.txtLength.Size = new System.Drawing.Size(100, 22);
+            this.txtLength.TabIndex = 15;
+            // 
+            // txtSongRating
+            // 
+            this.txtSongRating.Location = new System.Drawing.Point(118, 171);
+            this.txtSongRating.Name = "txtSongRating";
+            this.txtSongRating.Size = new System.Drawing.Size(100, 22);
+            this.txtSongRating.TabIndex = 16;
+            // 
+            // txtAlbumTitle
+            // 
+            this.txtAlbumTitle.Location = new System.Drawing.Point(118, 267);
+            this.txtAlbumTitle.Name = "txtAlbumTitle";
+            this.txtAlbumTitle.Size = new System.Drawing.Size(100, 22);
+            this.txtAlbumTitle.TabIndex = 17;
+            // 
+            // txtTrackNumber
+            // 
+            this.txtTrackNumber.Location = new System.Drawing.Point(118, 296);
+            this.txtTrackNumber.Name = "txtTrackNumber";
+            this.txtTrackNumber.Size = new System.Drawing.Size(100, 22);
+            this.txtTrackNumber.TabIndex = 18;
+            this.txtTrackNumber.Text = "1";
+            // 
+            // txtYear
+            // 
+            this.txtYear.Location = new System.Drawing.Point(118, 325);
+            this.txtYear.Name = "txtYear";
+            this.txtYear.Size = new System.Drawing.Size(100, 22);
+            this.txtYear.TabIndex = 19;
+            // 
+            // cmbAlbumGenre
+            // 
+            this.cmbAlbumGenre.FormattingEnabled = true;
+            this.cmbAlbumGenre.Location = new System.Drawing.Point(118, 354);
+            this.cmbAlbumGenre.Name = "cmbAlbumGenre";
+            this.cmbAlbumGenre.Size = new System.Drawing.Size(121, 24);
+            this.cmbAlbumGenre.TabIndex = 20;
+            // 
+            // txtAlbumRating
+            // 
+            this.txtAlbumRating.Location = new System.Drawing.Point(118, 385);
+            this.txtAlbumRating.Name = "txtAlbumRating";
+            this.txtAlbumRating.Size = new System.Drawing.Size(100, 22);
+            this.txtAlbumRating.TabIndex = 21;
+            // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Location = new System.Drawing.Point(72, 422);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(117, 29);
+            this.btnSubmit.TabIndex = 22;
+            this.btnSubmit.Text = "Add To Catalog";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            // 
+            // formCDCatalog
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(531, 481);
+            this.Controls.Add(this.groupBox1);
+            this.Name = "formCDCatalog";
             this.Text = "formCDCatalog";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox chkAlbum;
+        private System.Windows.Forms.ComboBox cmbSongGenre;
+        private System.Windows.Forms.ComboBox cmbArtist;
+        private System.Windows.Forms.TextBox txtSongTitle;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtAlbumRating;
+        private System.Windows.Forms.ComboBox cmbAlbumGenre;
+        private System.Windows.Forms.TextBox txtYear;
+        private System.Windows.Forms.TextBox txtTrackNumber;
+        private System.Windows.Forms.TextBox txtAlbumTitle;
+        private System.Windows.Forms.TextBox txtSongRating;
+        private System.Windows.Forms.TextBox txtLength;
+        private System.Windows.Forms.Button btnSubmit;
     }
 }
