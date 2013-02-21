@@ -18,6 +18,8 @@ namespace CDCatalog
         public formCDCatalog()
         {
             InitializeComponent();
+            cmbLowRating.SelectedIndex = 0;
+            cmbHighRating.SelectedIndex = 5;
         }
 
         public void addAlbumToDB(string albumTitle, string albumArtist, int albumYear, string albumGenre, int albumRating)
@@ -56,15 +58,17 @@ namespace CDCatalog
                 return;
             }
 
-            if(!(int.TryParse(txtSongRating.Text, out songRating)))
+            int.TryParse(txtSongRating.Text, out songRating);
+            if(songRating < 0 || songRating >= 5)
             {
-                MessageBox.Show("The song rating of " + txtSongRating.Text + " was not valid, please try again");
+                MessageBox.Show("The song rating of " + txtSongRating.Text + " was not valid or out of range, please try again");
                 return;
             }
 
-            if (!(int.TryParse(txtAlbumRating.Text, out albumRating)))
+            int.TryParse(txtAlbumRating.Text, out albumRating);
+            if (albumRating < 0 || songRating >= 5)
             {
-                MessageBox.Show("The album rating of " + txtAlbumRating.Text + " was not valid, please try again");
+                MessageBox.Show("The album rating of " + txtAlbumRating.Text + " was not valid or out of range, please try again");
                 return;
             }
 
@@ -87,7 +91,7 @@ namespace CDCatalog
                 trackNumber++;
 
             txtTrackNumber.Text = trackNumber.ToString();
-            loadComboBoxes();
+            initialLoad();
 
 
             MessageBox.Show("Your song has been successfully added");
@@ -117,25 +121,40 @@ namespace CDCatalog
 
         private void formCDCatalog_Load(object sender, EventArgs e)
         {
-            loadComboBoxes();
-        }
-
-        private void loadComboBoxes()
-        {
+            initialLoad();
             using (CDCatalogEntities context = new CDCatalogEntities())
             {
-                cmbArtist.Items.Clear();
-                cmbArtist.Items.AddRange(context.Artists.ToArray());
-                cmbSongGenre.Items.Clear();
-                cmbSongGenre.Items.AddRange(context.Genres.ToArray());
-                cmbAlbumGenre.Items.Clear();
-                cmbAlbumGenre.Items.AddRange(context.Genres.ToArray());
-                cmbAlbumTitle.Items.Clear();
-                cmbAlbumTitle.Items.AddRange(context.Albums.ToArray());
+                loadComboBox<Songs>(ref cmbChoiceList, context.Songs1.ToList());
+                cmbChoiceList.SelectedIndex = 0;
+                cmbChoiceList.DisplayMember = "Title";
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void initialLoad()
+        {
+            using (CDCatalogEntities context = new CDCatalogEntities())
+            {
+                loadComboBox<Artist>(ref cmbArtist, context.Artists.ToList());
+                loadComboBox<Genre>(ref cmbSongGenre, context.Genres.ToList());
+                loadComboBox<Genre>(ref cmbAlbumGenre, context.Genres.ToList());
+                loadComboBox<Album>(ref cmbAlbumTitle, context.Albums.ToList());
+            }
+        }
+
+        private void loadComboBox<T>(ref ComboBox cmb, List<T> list)
+        {
+            using (CDCatalogEntities context = new CDCatalogEntities())
+            {
+                cmb.Items.Clear();
+
+                foreach (T i in list)
+                {
+                    cmb.Items.Add(i);
+                }
+            }
+        }
+
+        private void btnPlayList_Click(object sender, EventArgs e)
         {
             lstPlayList.Items.Clear();
             RandomPlayList pl = new RandomPlayList();
@@ -153,6 +172,38 @@ namespace CDCatalog
             int totalSeconds = pl.playtime.Sum() - 60 * totalMinutes;
 
             lstPlayList.Items.Add("Total Time: " + totalMinutes + ":" + totalSeconds);
+        }
+
+        private void cmbChoice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbChoiceList.Items.Clear();
+            using(CDCatalogEntities context = new CDCatalogEntities())
+            {
+                switch (cmbChoice.Text)
+                {
+                    case "Song":
+                        loadComboBox<Songs>(ref cmbChoiceList, context.Songs1.ToList());
+                        cmbChoiceList.DisplayMember = "Title";
+                        break;
+                    case "Artist":
+                        loadComboBox<Artist>(ref cmbChoiceList, context.Artists.ToList());
+                        cmbChoiceList.DisplayMember = "Artist1";
+                        break;
+                    case "Album":
+                        loadComboBox<Album>(ref cmbChoiceList, context.Albums.ToList());
+                        cmbChoiceList.DisplayMember = "Title";
+                        break;
+                    case "Genre":
+                        loadComboBox<Genre>(ref cmbChoiceList, context.Genres.ToList());
+                        cmbChoiceList.DisplayMember = "Genre1";
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            cmbChoiceList.SelectedIndex = 0;
+
         }
 
     }

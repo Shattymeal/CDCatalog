@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbAlbumTitle = new System.Windows.Forms.ComboBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtAlbumRating = new System.Windows.Forms.TextBox();
             this.cmbAlbumGenre = new System.Windows.Forms.ComboBox();
@@ -50,9 +51,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbAlbumTitle = new System.Windows.Forms.ComboBox();
             this.lstPlayList = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPlayList = new System.Windows.Forms.Button();
+            this.cmbChoiceList = new System.Windows.Forms.ComboBox();
+            this.cmbChoice = new System.Windows.Forms.ComboBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.cmbLowRating = new System.Windows.Forms.ComboBox();
+            this.cmbHighRating = new System.Windows.Forms.ComboBox();
+            this.btnFindSongs = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,6 +93,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // cmbAlbumTitle
+            // 
+            this.cmbAlbumTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbAlbumTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbAlbumTitle.DisplayMember = "Title";
+            this.cmbAlbumTitle.FormattingEnabled = true;
+            this.cmbAlbumTitle.Location = new System.Drawing.Point(118, 264);
+            this.cmbAlbumTitle.Name = "cmbAlbumTitle";
+            this.cmbAlbumTitle.Size = new System.Drawing.Size(121, 24);
+            this.cmbAlbumTitle.TabIndex = 23;
             // 
             // btnSubmit
             // 
@@ -277,17 +294,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Song Title:";
             // 
-            // cmbAlbumTitle
-            // 
-            this.cmbAlbumTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmbAlbumTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmbAlbumTitle.DisplayMember = "Title";
-            this.cmbAlbumTitle.FormattingEnabled = true;
-            this.cmbAlbumTitle.Location = new System.Drawing.Point(118, 264);
-            this.cmbAlbumTitle.Name = "cmbAlbumTitle";
-            this.cmbAlbumTitle.Size = new System.Drawing.Size(121, 24);
-            this.cmbAlbumTitle.TabIndex = 23;
-            // 
             // lstPlayList
             // 
             this.lstPlayList.DisplayMember = "Title";
@@ -299,22 +305,101 @@
             this.lstPlayList.Size = new System.Drawing.Size(226, 372);
             this.lstPlayList.TabIndex = 1;
             // 
-            // button1
+            // btnPlayList
             // 
-            this.button1.Location = new System.Drawing.Point(362, 391);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 24);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Playlist";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnPlayList.Location = new System.Drawing.Point(367, 393);
+            this.btnPlayList.Name = "btnPlayList";
+            this.btnPlayList.Size = new System.Drawing.Size(75, 24);
+            this.btnPlayList.TabIndex = 2;
+            this.btnPlayList.Text = "Playlist";
+            this.btnPlayList.UseVisualStyleBackColor = true;
+            this.btnPlayList.Click += new System.EventHandler(this.btnPlayList_Click);
+            // 
+            // cmbChoiceList
+            // 
+            this.cmbChoiceList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbChoiceList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbChoiceList.FormattingEnabled = true;
+            this.cmbChoiceList.Location = new System.Drawing.Point(618, 392);
+            this.cmbChoiceList.Name = "cmbChoiceList";
+            this.cmbChoiceList.Size = new System.Drawing.Size(121, 24);
+            this.cmbChoiceList.TabIndex = 3;
+            // 
+            // cmbChoice
+            // 
+            this.cmbChoice.FormattingEnabled = true;
+            this.cmbChoice.Items.AddRange(new object[] {
+            "Song",
+            "Artist",
+            "Album",
+            "Genre"});
+            this.cmbChoice.Location = new System.Drawing.Point(547, 391);
+            this.cmbChoice.Name = "cmbChoice";
+            this.cmbChoice.Size = new System.Drawing.Size(65, 24);
+            this.cmbChoice.TabIndex = 4;
+            this.cmbChoice.Text = "Song";
+            this.cmbChoice.SelectedIndexChanged += new System.EventHandler(this.cmbChoice_SelectedIndexChanged);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(547, 13);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(301, 356);
+            this.listBox1.TabIndex = 5;
+            // 
+            // cmbLowRating
+            // 
+            this.cmbLowRating.FormattingEnabled = true;
+            this.cmbLowRating.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cmbLowRating.Location = new System.Drawing.Point(745, 391);
+            this.cmbLowRating.Name = "cmbLowRating";
+            this.cmbLowRating.Size = new System.Drawing.Size(46, 24);
+            this.cmbLowRating.TabIndex = 6;
+            // 
+            // cmbHighRating
+            // 
+            this.cmbHighRating.FormattingEnabled = true;
+            this.cmbHighRating.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cmbHighRating.Location = new System.Drawing.Point(802, 391);
+            this.cmbHighRating.Name = "cmbHighRating";
+            this.cmbHighRating.Size = new System.Drawing.Size(46, 24);
+            this.cmbHighRating.TabIndex = 7;
+            // 
+            // btnFindSongs
+            // 
+            this.btnFindSongs.Location = new System.Drawing.Point(608, 434);
+            this.btnFindSongs.Name = "btnFindSongs";
+            this.btnFindSongs.Size = new System.Drawing.Size(164, 23);
+            this.btnFindSongs.TabIndex = 8;
+            this.btnFindSongs.Text = "Find Songs";
+            this.btnFindSongs.UseVisualStyleBackColor = true;
             // 
             // formCDCatalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(743, 481);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(860, 481);
+            this.Controls.Add(this.btnFindSongs);
+            this.Controls.Add(this.cmbHighRating);
+            this.Controls.Add(this.cmbLowRating);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.cmbChoice);
+            this.Controls.Add(this.cmbChoiceList);
+            this.Controls.Add(this.btnPlayList);
             this.Controls.Add(this.lstPlayList);
             this.Controls.Add(this.groupBox1);
             this.Name = "formCDCatalog";
@@ -352,6 +437,12 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.ComboBox cmbAlbumTitle;
         private System.Windows.Forms.ListBox lstPlayList;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPlayList;
+        private System.Windows.Forms.ComboBox cmbChoiceList;
+        private System.Windows.Forms.ComboBox cmbChoice;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ComboBox cmbLowRating;
+        private System.Windows.Forms.ComboBox cmbHighRating;
+        private System.Windows.Forms.Button btnFindSongs;
     }
 }
