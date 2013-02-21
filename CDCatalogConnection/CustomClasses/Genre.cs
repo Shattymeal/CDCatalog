@@ -13,7 +13,7 @@ namespace CDCatalogConnection
             using (CDCatalogEntities context = new CDCatalogEntities())
             {
                 //Genre Where clause that finds any genre with the name
-                List<Genre> GenreToFind = context.Genres.Where(g => g.Genre1 == genreName).ToList();
+                List<Genre> GenreToFind = context.Genres.Where(g => g.Genre1.ToUpper() == genreName.ToUpper()).ToList();
 
                 //If nothing in GenreToFind list then add the genre to the database
                 if (GenreToFind.Count == 0)

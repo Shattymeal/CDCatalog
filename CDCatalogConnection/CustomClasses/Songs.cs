@@ -12,7 +12,7 @@ namespace CDCatalogConnection
         {
             using(CDCatalogEntities context = new CDCatalogEntities())
             {
-                List<Songs> SongToFind = context.Songs1.Where(s => s.Title == songTitle).ToList();
+                List<Songs> SongToFind = context.Songs1.Where(s => s.Title.ToUpper() == songTitle.ToUpper()).ToList();
 
                 if (SongToFind.Count == 0)
                 {
@@ -27,7 +27,7 @@ namespace CDCatalogConnection
                     context.Songs1.Add(SongToAdd);
                     context.SaveChanges();
 
-                    List<Songs> AddedSong = context.Songs1.Where(s => s.Title == songTitle).ToList();
+                    List<Songs> AddedSong = context.Songs1.Where(s => s.Title.ToUpper() == songTitle.ToUpper()).ToList();
                     return AddedSong[0].SongID;
                 }
 

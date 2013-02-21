@@ -94,6 +94,7 @@
     </None>
     <None Include="CDCatalog.edmx.diagram">
       <DependentUpon>CDCatalog.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="CDCatalog.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

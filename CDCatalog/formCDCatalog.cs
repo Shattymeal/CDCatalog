@@ -13,85 +13,124 @@ namespace CDCatalog
 {
     public partial class formCDCatalog : Form
     {
+        int trackNumber = 1;
         public formCDCatalog()
         {
             InitializeComponent();
-            //addGenreToDB();
-            //addArtistToDB();
-            //addAlbumToDB();
-            //addSongToDB();
         }
 
-        public void addGenreToDB()
+        public void addAlbumToDB(string albumTitle, string albumArtist, int albumYear, string albumGenre, int albumRating)
         {
-            using (CDCatalogEntities context = new CDCatalogEntities())
-            {
-                string genre = "Trap";
-                Genre newGenre = new Genre();
-                int ID = newGenre.GenreCheck(genre);
-                MessageBox.Show("The following Genre Trap was added with ID " + ID);
-            }
-        }
-
-        public void addArtistToDB()
-        {
-            string artist = "Diplo";
-            Artist newArtist = new Artist();
-            int ID = newArtist.ArtistCheck(artist);
-            MessageBox.Show("The Following Artist Diplo was added with ID " + ID);
-        }
-
-        public void addAlbumToDB()
-        {
-            string albumTitle = "Trapity Trap";
-            string albumArtist = "Diplo";
-            int albumYear = 2000;
-            string albumGenre = "Trap";
-            int albumRating = 5;
             Album newAlbum = new Album();
             int ID = newAlbum.AlbumCheck(albumTitle, albumArtist, albumYear, albumGenre, albumRating);
-            MessageBox.Show("The Following Album Trapity Trap was added with ID " + ID);
-
+            MessageBox.Show("The Following Album " + cmbAlbumTitle.Text + " was added with ID " + ID);
         }
 
-        public void addSongToDB()
+        public void addSongToDB(string songTitle, string songArtist, string songAlbum, string songGenre, int songTrackNumber, int songTrackLength, int songRating)
         {
-            string songTitle = "Original Don";
-            string songArtist = "Diplo";
-            string songAlbum = "Trapity Trap";
-            string songGenre = "Trap";
-            int songTrackNumber = 1;
-            int songTrackLength = 300;
-            int songRating = 5;
             Songs newSong = new Songs();
             int ID = newSong.SongCheck(songTitle, songArtist, songAlbum, songGenre, songTrackNumber, songTrackLength, songRating);
-            MessageBox.Show("The Following Song Original Don was added with ID " + ID);
+            MessageBox.Show("The Following Song " + txtSongTitle.Text + " was added with ID " + ID);
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            //Validating Block
+            #region Member Variables
+            int songTrackLength;
+            int songRating;
+            int albumRating;
+            int year;
+            #endregion
+
+            #region Validating Blocks
+            if (!(int.TryParse(txtYear.Text, out year)))
+            {
+                MessageBox.Show("The Year " + txtYear.Text + " was not a valid, please try again");
+                return;
+            }
+
+            if(!(int.TryParse(txtLength.Text, out songTrackLength)))
+            {
+                MessageBox.Show("The Length " + txtLength.Text + " was not valid, please try again");
+                return;
+            }
+
+            if(!(int.TryParse(txtSongRating.Text, out songRating)))
+            {
+                MessageBox.Show("The song rating of " + txtSongRating.Text + " was not valid, please try again");
+                return;
+            }
+
+            if (!(int.TryParse(txtAlbumRating.Text, out albumRating)))
+            {
+                MessageBox.Show("The album rating of " + txtAlbumRating.Text + " was not valid, please try again");
+                return;
+            }
+
+            if (!(int.TryParse(txtTrackNumber.Text, out trackNumber)))
+            {
+                MessageBox.Show("The track number of " + txtTrackNumber.Text + " is not valid, please try again");
+                return;
+            }
+
+            #endregion 
+
+            if (chkAlbum.Checked)
+            {
+                addAlbumToDB(cmbAlbumTitle.Text, cmbArtist.Text, year, cmbAlbumGenre.Text, albumRating);
+            }
+
+            addSongToDB(txtSongTitle.Text, cmbArtist.Text, cmbAlbumTitle.Text, cmbSongGenre.Text, trackNumber, songTrackLength, songRating);
+
+            if(chkAlbum.Checked)
+                trackNumber++;
+
+            txtTrackNumber.Text = trackNumber.ToString();
+            loadComboBoxes();
+
+
+            MessageBox.Show("Your song has been successfully added");
         }
 
         private void chkAlbum_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAlbum.Checked == false)
             {
-                txtAlbumTitle.Enabled = false;
+                cmbAlbumTitle.Enabled = false;
                 txtTrackNumber.Enabled = false;
-                txtTrackNumber.Text = "1";
+                txtTrackNumber.Text = trackNumber.ToString();
                 txtYear.Enabled = false;
                 cmbAlbumGenre.Enabled = false;
                 txtAlbumRating.Enabled = false;
             }
             else if(chkAlbum.Checked)
             {
-                txtAlbumTitle.Enabled = true;
+                cmbAlbumTitle.Enabled = true;
                 txtTrackNumber.Enabled = true;
-                txtTrackNumber.Text = "1";
+                txtTrackNumber.Text = trackNumber.ToString();
                 txtYear.Enabled = true;
                 cmbAlbumGenre.Enabled = true;
                 txtAlbumRating.Enabled = true;
+            }
+        }
+
+        private void formCDCatalog_Load(object sender, EventArgs e)
+        {
+            loadComboBoxes();
+        }
+
+        private void loadComboBoxes()
+        {
+            using (CDCatalogEntities context = new CDCatalogEntities())
+            {
+                cmbArtist.Items.Clear();
+                cmbArtist.Items.AddRange(context.Artists.ToArray());
+                cmbSongGenre.Items.Clear();
+                cmbSongGenre.Items.AddRange(context.Genres.ToArray());
+                cmbAlbumGenre.Items.Clear();
+                cmbAlbumGenre.Items.AddRange(context.Genres.ToArray());
+                cmbAlbumTitle.Items.Clear();
+                cmbAlbumTitle.Items.AddRange(context.Albums.ToArray());
             }
         }
 
