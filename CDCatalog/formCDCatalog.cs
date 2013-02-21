@@ -14,6 +14,7 @@ namespace CDCatalog
     public partial class formCDCatalog : Form
     {
         int trackNumber = 1;
+        RandomPlayList playlist = new RandomPlayList();
         public formCDCatalog()
         {
             InitializeComponent();
