@@ -51,6 +51,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbAlbumTitle = new System.Windows.Forms.ComboBox();
+            this.lstPlayList = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -286,11 +288,34 @@
             this.cmbAlbumTitle.Size = new System.Drawing.Size(121, 24);
             this.cmbAlbumTitle.TabIndex = 23;
             // 
+            // lstPlayList
+            // 
+            this.lstPlayList.DisplayMember = "Title";
+            this.lstPlayList.FormattingEnabled = true;
+            this.lstPlayList.ItemHeight = 16;
+            this.lstPlayList.Location = new System.Drawing.Point(292, 13);
+            this.lstPlayList.MultiColumn = true;
+            this.lstPlayList.Name = "lstPlayList";
+            this.lstPlayList.Size = new System.Drawing.Size(226, 372);
+            this.lstPlayList.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(362, 391);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 24);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Playlist";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // formCDCatalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(531, 481);
+            this.ClientSize = new System.Drawing.Size(743, 481);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lstPlayList);
             this.Controls.Add(this.groupBox1);
             this.Name = "formCDCatalog";
             this.Text = "formCDCatalog";
@@ -326,5 +351,7 @@
         private System.Windows.Forms.TextBox txtLength;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.ComboBox cmbAlbumTitle;
+        private System.Windows.Forms.ListBox lstPlayList;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -14,7 +14,7 @@ namespace CDCatalog
     public partial class formCDCatalog : Form
     {
         int trackNumber = 1;
-        RandomPlayList playlist = new RandomPlayList();
+
         public formCDCatalog()
         {
             InitializeComponent();
@@ -133,6 +133,26 @@ namespace CDCatalog
                 cmbAlbumTitle.Items.Clear();
                 cmbAlbumTitle.Items.AddRange(context.Albums.ToArray());
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            lstPlayList.Items.Clear();
+            RandomPlayList pl = new RandomPlayList();
+            
+            while (pl.playList.Count > 0)
+            {
+                Songs songToAdd = pl.playList.Pop();
+                int minutes = songToAdd.TrackLength / 60;
+                int seconds = songToAdd.TrackLength - 60 * minutes;
+                
+                lstPlayList.Items.Add(songToAdd.Title + " " + minutes + ":" + seconds);
+            }
+
+            int totalMinutes = pl.playtime.Sum() / 60;
+            int totalSeconds = pl.playtime.Sum() - 60 * totalMinutes;
+
+            lstPlayList.Items.Add("Total Time: " + totalMinutes + ":" + totalSeconds);
         }
 
     }

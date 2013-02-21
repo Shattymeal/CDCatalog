@@ -9,10 +9,11 @@ namespace CDCatalog
 {
     public class RandomPlayList
     {
-        Stack<Songs> playList;
-        List<int> playtime;
-        List<int> usedSong;
-        List<Songs> SongCatalog;
+        public Stack<Songs> playList = new Stack<Songs>();
+        bool uniqueIndex = false;
+        public List<int> playtime = new List<int>();
+        List<int> usedSong = new List<int>();
+        List<Songs> SongCatalog = new List<Songs>();
         public const int playtimeMin = 2520;
         public const int playtimeMax = 2820;
 
@@ -20,7 +21,7 @@ namespace CDCatalog
         {
             using (CDCatalogEntities context = new CDCatalogEntities())
             {
-                SongCatalog = context.Songs1.ToList();
+                this.SongCatalog = context.Songs1.ToList();
                 CreatePlayList();
             }
         }
@@ -30,18 +31,18 @@ namespace CDCatalog
             Random rndSong = new Random();
             int index = rndSong.Next(0, SongCatalog.Count);
 
-            while (playtime.Sum() > 2520 && playtime.Sum() < 2820)
+            while (playtime.Sum() < playtimeMin || playtime.Sum() > playtimeMax)
             {
-                
+                uniqueIndex = false;
 
-                if (playtime.Sum() > 2520)
+                if (playtime.Sum() < playtimeMin)
                 {
                     playtime.Add(SongCatalog[index].TrackLength);
                     playList.Push(SongCatalog[index]);
                     usedSong.Add(index);
                 }
 
-                if (playtime.Sum() > 2820)
+                if (playtime.Sum() > playtimeMax)
                 {
                     usedSong.Remove(index);
                     playList.Pop();
@@ -49,6 +50,18 @@ namespace CDCatalog
                 }
 
                 index = rndSong.Next(0, SongCatalog.Count);
+
+                while (!uniqueIndex)
+                {
+                    if (usedSong.Contains(index))
+                    {
+                        index = rndSong.Next(0, SongCatalog.Count);
+                    }
+                    else
+                    {
+                        uniqueIndex = true;
+                    }
+                }
             }
         }
     }
