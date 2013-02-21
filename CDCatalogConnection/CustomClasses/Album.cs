@@ -43,5 +43,19 @@ namespace CDCatalogConnection
             }
         }
 
+        public int AlbumCheck(string albumTitle)
+        {
+            using (CDCatalogEntities context = new CDCatalogEntities())
+            {
+                List<Album> albumToFind = new List<Album>();
+                albumToFind = context.Albums.Where(al => al.Title == albumTitle).ToList();
+
+                if (albumToFind.Count < 1)
+                    return -1;
+                else
+                    return albumToFind[0].AlbumID;
+
+            }
+        }
     }
 }

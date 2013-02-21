@@ -55,10 +55,11 @@
             this.btnPlayList = new System.Windows.Forms.Button();
             this.cmbChoiceList = new System.Windows.Forms.ComboBox();
             this.cmbChoice = new System.Windows.Forms.ComboBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstSongSearch = new System.Windows.Forms.ListBox();
             this.cmbLowRating = new System.Windows.Forms.ComboBox();
             this.cmbHighRating = new System.Windows.Forms.ComboBox();
-            this.btnFindSongs = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.chkRating = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -320,10 +321,13 @@
             this.cmbChoiceList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbChoiceList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbChoiceList.FormattingEnabled = true;
+            this.cmbChoiceList.Items.AddRange(new object[] {
+            "All"});
             this.cmbChoiceList.Location = new System.Drawing.Point(618, 392);
             this.cmbChoiceList.Name = "cmbChoiceList";
             this.cmbChoiceList.Size = new System.Drawing.Size(121, 24);
             this.cmbChoiceList.TabIndex = 3;
+            this.cmbChoiceList.Text = "All";
             // 
             // cmbChoice
             // 
@@ -340,14 +344,15 @@
             this.cmbChoice.Text = "Song";
             this.cmbChoice.SelectedIndexChanged += new System.EventHandler(this.cmbChoice_SelectedIndexChanged);
             // 
-            // listBox1
+            // lstSongSearch
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(547, 13);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(301, 356);
-            this.listBox1.TabIndex = 5;
+            this.lstSongSearch.DisplayMember = "Title";
+            this.lstSongSearch.FormattingEnabled = true;
+            this.lstSongSearch.ItemHeight = 16;
+            this.lstSongSearch.Location = new System.Drawing.Point(547, 13);
+            this.lstSongSearch.Name = "lstSongSearch";
+            this.lstSongSearch.Size = new System.Drawing.Size(327, 356);
+            this.lstSongSearch.TabIndex = 5;
             // 
             // cmbLowRating
             // 
@@ -379,24 +384,39 @@
             this.cmbHighRating.Size = new System.Drawing.Size(46, 24);
             this.cmbHighRating.TabIndex = 7;
             // 
-            // btnFindSongs
+            // btnSearch
             // 
-            this.btnFindSongs.Location = new System.Drawing.Point(608, 434);
-            this.btnFindSongs.Name = "btnFindSongs";
-            this.btnFindSongs.Size = new System.Drawing.Size(164, 23);
-            this.btnFindSongs.TabIndex = 8;
-            this.btnFindSongs.Text = "Find Songs";
-            this.btnFindSongs.UseVisualStyleBackColor = true;
+            this.btnSearch.Location = new System.Drawing.Point(608, 434);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(164, 29);
+            this.btnSearch.TabIndex = 8;
+            this.btnSearch.Text = "Find Songs by Title";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // chkRating
+            // 
+            this.chkRating.AutoSize = true;
+            this.chkRating.Checked = true;
+            this.chkRating.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRating.Location = new System.Drawing.Point(745, 371);
+            this.chkRating.Name = "chkRating";
+            this.chkRating.Size = new System.Drawing.Size(133, 21);
+            this.chkRating.TabIndex = 9;
+            this.chkRating.Text = "Filter by Rating?";
+            this.chkRating.UseVisualStyleBackColor = true;
+            this.chkRating.CheckedChanged += new System.EventHandler(this.chkRating_CheckedChanged);
             // 
             // formCDCatalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 481);
-            this.Controls.Add(this.btnFindSongs);
+            this.ClientSize = new System.Drawing.Size(886, 481);
+            this.Controls.Add(this.chkRating);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.cmbHighRating);
             this.Controls.Add(this.cmbLowRating);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lstSongSearch);
             this.Controls.Add(this.cmbChoice);
             this.Controls.Add(this.cmbChoiceList);
             this.Controls.Add(this.btnPlayList);
@@ -408,6 +428,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -440,9 +461,10 @@
         private System.Windows.Forms.Button btnPlayList;
         private System.Windows.Forms.ComboBox cmbChoiceList;
         private System.Windows.Forms.ComboBox cmbChoice;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstSongSearch;
         private System.Windows.Forms.ComboBox cmbLowRating;
         private System.Windows.Forms.ComboBox cmbHighRating;
-        private System.Windows.Forms.Button btnFindSongs;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.CheckBox chkRating;
     }
 }

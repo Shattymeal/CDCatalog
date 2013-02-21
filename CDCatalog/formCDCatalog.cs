@@ -124,7 +124,7 @@ namespace CDCatalog
             initialLoad();
             using (CDCatalogEntities context = new CDCatalogEntities())
             {
-                loadComboBox<Songs>(ref cmbChoiceList, context.Songs1.ToList());
+                loadComboBox<Songs>(ref cmbChoiceList, context.Songs1.ToList(), true);
                 cmbChoiceList.SelectedIndex = 0;
                 cmbChoiceList.DisplayMember = "Title";
             }
@@ -141,16 +141,26 @@ namespace CDCatalog
             }
         }
 
-        private void loadComboBox<T>(ref ComboBox cmb, List<T> list)
+        private void loadComboBox<T>(ref ComboBox cmb, List<T> list, bool allFlag = false)
         {
             using (CDCatalogEntities context = new CDCatalogEntities())
             {
                 cmb.Items.Clear();
+                if (allFlag)
+                    cmb.Items.Add("All");
 
                 foreach (T i in list)
                 {
                     cmb.Items.Add(i);
                 }
+            }
+        }
+
+        private void loadListBox<T>(ref ListBox lst, List<T> list)
+        {
+            foreach (T i in list)
+            {
+                lstSongSearch.Items.Add(i);
             }
         }
 
@@ -182,20 +192,24 @@ namespace CDCatalog
                 switch (cmbChoice.Text)
                 {
                     case "Song":
-                        loadComboBox<Songs>(ref cmbChoiceList, context.Songs1.ToList());
+                        loadComboBox<Songs>(ref cmbChoiceList, context.Songs1.ToList(), true);
                         cmbChoiceList.DisplayMember = "Title";
+                        btnSearch.Text = "Find Songs by Title";
                         break;
                     case "Artist":
-                        loadComboBox<Artist>(ref cmbChoiceList, context.Artists.ToList());
+                        loadComboBox<Artist>(ref cmbChoiceList, context.Artists.ToList(), false);
                         cmbChoiceList.DisplayMember = "Artist1";
+                        btnSearch.Text = "Find Songs by Artist";
                         break;
                     case "Album":
-                        loadComboBox<Album>(ref cmbChoiceList, context.Albums.ToList());
+                        loadComboBox<Album>(ref cmbChoiceList, context.Albums.ToList(), false);
                         cmbChoiceList.DisplayMember = "Title";
+                        btnSearch.Text = "Find Songs by Album";
                         break;
                     case "Genre":
-                        loadComboBox<Genre>(ref cmbChoiceList, context.Genres.ToList());
+                        loadComboBox<Genre>(ref cmbChoiceList, context.Genres.ToList(), false);
                         cmbChoiceList.DisplayMember = "Genre1";
+                        btnSearch.Text = "Find Songs by Genre";
                         break;
                     default:
                         break;
@@ -204,6 +218,53 @@ namespace CDCatalog
 
             cmbChoiceList.SelectedIndex = 0;
 
+        }
+
+        private void chkRating_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkRating.Checked)
+            {
+                cmbLowRating.Enabled = true;
+                cmbHighRating.Enabled = true;
+            }
+            else if (chkRating.Checked == false)
+            {
+                cmbLowRating.Enabled = false;
+                cmbHighRating.Enabled = false;
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            int id = 0;
+            lstSongSearch.Items.Clear();
+
+            using(CDCatalogEntities context = new CDCatalogEntities())
+            {
+            switch(cmbChoice.Text)
+            {
+                    case "Song":
+                    if (cmbChoiceList.Text == "All")
+                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.ToList());
+                    else
+                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.Title == cmbChoiceList.Text).ToList());
+                        break;
+                    case "Artist":
+                        id = new Artist().ArtistCheck(cmbChoiceList.Text);
+                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.ArtistID == id).ToList());
+                        break;
+                    case"Album":
+                        id = new Album().AlbumCheck(cmbChoiceList.Text);
+                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.AlbumID == id).ToList());
+                        break;
+                    case "Genre":
+                        id = new Genre().GenreCheck(cmbChoiceList.Text);
+                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.GenreID == id).ToList());
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
     }
