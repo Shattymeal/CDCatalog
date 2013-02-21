@@ -228,32 +228,40 @@ namespace CDCatalog
         private void btnSearch_Click(object sender, EventArgs e)
         {
             int id = 0;
+            int lowSongRating = 0;
+            int highSongRating = 5;
+
+            if (chkRating.Checked)
+            {
+                int.TryParse(cmbLowRating.Text, out lowSongRating);
+                int.TryParse(cmbHighRating.Text, out highSongRating);
+            }
 
             using(CDCatalogEntities context = new CDCatalogEntities())
             {
-            switch(cmbChoice.Text)
-            {
-                    case "Song":
-                    if (cmbChoiceList.Text == "All")
-                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.ToList());
-                    else
-                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.Title == cmbChoiceList.Text).ToList());
-                        break;
-                    case "Artist":
-                        id = new Artist().ArtistCheck(cmbChoiceList.Text);
-                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.ArtistID == id).ToList());
-                        break;
-                    case"Album":
-                        id = new Album().AlbumCheck(cmbChoiceList.Text);
-                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.AlbumID == id).ToList());
-                        break;
-                    case "Genre":
-                        id = new Genre().GenreCheck(cmbChoiceList.Text);
-                        loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.GenreID == id).ToList());
-                        break;
-                    default:
-                        break;
-                }
+                switch(cmbChoice.Text)
+                {
+                        case "Song":
+                        if (cmbChoiceList.Text == "All")
+                            loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.Rating <= highSongRating && s.Rating >= lowSongRating).ToList());
+                        else
+                            loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.Title == cmbChoiceList.Text && (s.Rating >= lowSongRating && s.Rating <= highSongRating)).ToList());
+                            break;
+                        case "Artist":
+                            id = new Artist().ArtistCheck(cmbChoiceList.Text);
+                            loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.ArtistID == id && (s.Rating >= lowSongRating && s.Rating <= highSongRating)).ToList());
+                            break;
+                        case"Album":
+                            id = new Album().AlbumCheck(cmbChoiceList.Text);
+                            loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.AlbumID == id && (s.Rating >= lowSongRating && s.Rating <= highSongRating)).ToList());
+                            break;
+                        case "Genre":
+                            id = new Genre().GenreCheck(cmbChoiceList.Text);
+                            loadListBox<Songs>(ref lstSongSearch, context.Songs1.Where(s => s.GenreID == id && (s.Rating >= lowSongRating && s.Rating <= highSongRating)).ToList());
+                            break;
+                        default:
+                            break;
+                    }
             }
         }
 
@@ -334,18 +342,29 @@ namespace CDCatalog
             using(CDCatalogEntities context = new CDCatalogEntities())
             {
                 int id = 0;
+                int albumLowRating = 0;
+                int albumHighRating = 5;
+
+                if (chkAlbumRating.Checked)
+                {
+                    int.TryParse(cmbAlbumLowRating.Text, out albumLowRating);
+                    int.TryParse(cmbAlbumHighRating.Text, out albumHighRating);
+                }
                 switch (cmbAlbumSearch.Text)
                 {
                     case "Album":
-                        loadListBox<Album>(ref lstAlbumSearch, context.Albums.Where(al => al.Title == cmbAlbumChoice.Text).ToList());
+                        if (cmbAlbumChoice.Text == "All")
+                            loadListBox<Album>(ref lstAlbumSearch, context.Albums.Where(al => (al.Rating >= albumLowRating && al.Rating <= albumHighRating)).ToList());
+                        else
+                            loadListBox<Album>(ref lstAlbumSearch, context.Albums.Where(al => al.Title == cmbAlbumChoice.Text && (al.Rating >= albumLowRating && al.Rating <= albumHighRating)).ToList());
                         break;
                     case "Artist":
                         id = new Artist().ArtistCheck(cmbAlbumChoice.Text);
-                        loadListBox<Album>(ref lstAlbumSearch, context.Albums.Where(al => al.ArtistID == id).ToList());
+                        loadListBox<Album>(ref lstAlbumSearch, context.Albums.Where(al => al.ArtistID == id && (al.Rating >= albumLowRating && al.Rating <= albumHighRating)).ToList());
                         break;
                     case "Genre":
                         id = new Genre().GenreCheck(cmbAlbumChoice.Text);
-                        loadListBox<Album>(ref lstAlbumSearch, context.Albums.Where(al => al.GenreID == id).ToList());
+                        loadListBox<Album>(ref lstAlbumSearch, context.Albums.Where(al => al.GenreID == id && (al.Rating >= albumLowRating && al.Rating <= albumHighRating)).ToList());
                         break;
                     default:
                         break;
