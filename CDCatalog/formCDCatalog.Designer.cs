@@ -60,6 +60,13 @@
             this.cmbHighRating = new System.Windows.Forms.ComboBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.chkRating = new System.Windows.Forms.CheckBox();
+            this.chkAlbumRating = new System.Windows.Forms.CheckBox();
+            this.btnAlbumSearch = new System.Windows.Forms.Button();
+            this.cmbAlbumHighRating = new System.Windows.Forms.ComboBox();
+            this.cmbAlbumLowRating = new System.Windows.Forms.ComboBox();
+            this.lstAlbumSearch = new System.Windows.Forms.ListBox();
+            this.cmbAlbumSearch = new System.Windows.Forms.ComboBox();
+            this.cmbAlbumChoice = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -407,11 +414,108 @@
             this.chkRating.UseVisualStyleBackColor = true;
             this.chkRating.CheckedChanged += new System.EventHandler(this.chkRating_CheckedChanged);
             // 
+            // chkAlbumRating
+            // 
+            this.chkAlbumRating.AutoSize = true;
+            this.chkAlbumRating.Checked = true;
+            this.chkAlbumRating.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAlbumRating.Location = new System.Drawing.Point(1078, 371);
+            this.chkAlbumRating.Name = "chkAlbumRating";
+            this.chkAlbumRating.Size = new System.Drawing.Size(133, 21);
+            this.chkAlbumRating.TabIndex = 16;
+            this.chkAlbumRating.Text = "Filter by Rating?";
+            this.chkAlbumRating.UseVisualStyleBackColor = true;
+            this.chkAlbumRating.CheckedChanged += new System.EventHandler(this.chkAlbumRating_CheckedChanged);
+            // 
+            // btnAlbumSearch
+            // 
+            this.btnAlbumSearch.Location = new System.Drawing.Point(941, 434);
+            this.btnAlbumSearch.Name = "btnAlbumSearch";
+            this.btnAlbumSearch.Size = new System.Drawing.Size(164, 29);
+            this.btnAlbumSearch.TabIndex = 15;
+            this.btnAlbumSearch.Text = "Find Album by Title";
+            this.btnAlbumSearch.UseVisualStyleBackColor = true;
+            this.btnAlbumSearch.Click += new System.EventHandler(this.btnAlbumSearch_Click);
+            // 
+            // cmbAlbumHighRating
+            // 
+            this.cmbAlbumHighRating.FormattingEnabled = true;
+            this.cmbAlbumHighRating.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cmbAlbumHighRating.Location = new System.Drawing.Point(1135, 391);
+            this.cmbAlbumHighRating.Name = "cmbAlbumHighRating";
+            this.cmbAlbumHighRating.Size = new System.Drawing.Size(46, 24);
+            this.cmbAlbumHighRating.TabIndex = 14;
+            // 
+            // cmbAlbumLowRating
+            // 
+            this.cmbAlbumLowRating.FormattingEnabled = true;
+            this.cmbAlbumLowRating.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cmbAlbumLowRating.Location = new System.Drawing.Point(1078, 391);
+            this.cmbAlbumLowRating.Name = "cmbAlbumLowRating";
+            this.cmbAlbumLowRating.Size = new System.Drawing.Size(46, 24);
+            this.cmbAlbumLowRating.TabIndex = 13;
+            // 
+            // lstAlbumSearch
+            // 
+            this.lstAlbumSearch.DisplayMember = "Title";
+            this.lstAlbumSearch.FormattingEnabled = true;
+            this.lstAlbumSearch.ItemHeight = 16;
+            this.lstAlbumSearch.Location = new System.Drawing.Point(880, 13);
+            this.lstAlbumSearch.Name = "lstAlbumSearch";
+            this.lstAlbumSearch.Size = new System.Drawing.Size(327, 356);
+            this.lstAlbumSearch.TabIndex = 12;
+            // 
+            // cmbAlbumSearch
+            // 
+            this.cmbAlbumSearch.FormattingEnabled = true;
+            this.cmbAlbumSearch.Items.AddRange(new object[] {
+            "Album",
+            "Artist",
+            "Genre"});
+            this.cmbAlbumSearch.Location = new System.Drawing.Point(880, 392);
+            this.cmbAlbumSearch.Name = "cmbAlbumSearch";
+            this.cmbAlbumSearch.Size = new System.Drawing.Size(65, 24);
+            this.cmbAlbumSearch.TabIndex = 11;
+            this.cmbAlbumSearch.Text = "Album";
+            this.cmbAlbumSearch.SelectedIndexChanged += new System.EventHandler(this.cmbAlbumSearch_SelectedIndexChanged);
+            // 
+            // cmbAlbumChoice
+            // 
+            this.cmbAlbumChoice.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbAlbumChoice.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbAlbumChoice.FormattingEnabled = true;
+            this.cmbAlbumChoice.Items.AddRange(new object[] {
+            "All"});
+            this.cmbAlbumChoice.Location = new System.Drawing.Point(951, 392);
+            this.cmbAlbumChoice.Name = "cmbAlbumChoice";
+            this.cmbAlbumChoice.Size = new System.Drawing.Size(121, 24);
+            this.cmbAlbumChoice.TabIndex = 10;
+            this.cmbAlbumChoice.Text = "All";
+            // 
             // formCDCatalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 481);
+            this.ClientSize = new System.Drawing.Size(1341, 481);
+            this.Controls.Add(this.chkAlbumRating);
+            this.Controls.Add(this.btnAlbumSearch);
+            this.Controls.Add(this.cmbAlbumHighRating);
+            this.Controls.Add(this.cmbAlbumLowRating);
+            this.Controls.Add(this.lstAlbumSearch);
+            this.Controls.Add(this.cmbAlbumSearch);
+            this.Controls.Add(this.cmbAlbumChoice);
             this.Controls.Add(this.chkRating);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.cmbHighRating);
@@ -466,5 +570,12 @@
         private System.Windows.Forms.ComboBox cmbHighRating;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.CheckBox chkRating;
+        private System.Windows.Forms.CheckBox chkAlbumRating;
+        private System.Windows.Forms.Button btnAlbumSearch;
+        private System.Windows.Forms.ComboBox cmbAlbumHighRating;
+        private System.Windows.Forms.ComboBox cmbAlbumLowRating;
+        private System.Windows.Forms.ListBox lstAlbumSearch;
+        private System.Windows.Forms.ComboBox cmbAlbumSearch;
+        private System.Windows.Forms.ComboBox cmbAlbumChoice;
     }
 }
