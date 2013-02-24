@@ -25,70 +25,64 @@ namespace CDCatalog
         private void formCDCatalog_Load(object sender, EventArgs e)
         {
             initialLoad();
-            cmbLowRating.SelectedIndex = 0;
-            cmbAlbumLowRating.SelectedIndex = 0;
-            cmbHighRating.SelectedIndex = 5;
-            cmbAlbumHighRating.SelectedIndex = 5;
-            fillComboSwitch(ref cmbChoiceList, ref cmbChoice, true);
         }
 
         #endregion
 
-        #region Combobox Events
-
-        private void cmbAlbumSearch_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bool allFlag = false;
-            if (cmbAlbumSearch.Text == "Album")
-                allFlag = true;
-
-            fillComboSwitch(ref cmbAlbumChoice, ref cmbAlbumSearch, allFlag);
-
-            switch (cmbAlbumSearch.Text)
-            {
-                case "Artist":
-                    if (cmbAlbumChoice.Text == "All")
-                        btnAlbumSearch.Text = "Find Albums by Rating";
-                    else
-                        btnAlbumSearch.Text = "Find Albums by Artist";
-                    break;
-                case "Album":
-                    btnAlbumSearch.Text = "Find Albums by Album";
-                    break;
-                case "Genre":
-                    btnAlbumSearch.Text = "Find Albums by Genre";
-                    break;
-                default:
-                    break;
-            }
-        }
+        #region Combobox and Radio Button Events
 
         private void cmbChoice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool allFlag = false;
-            if (cmbChoice.Text == "Song")
-                allFlag = true;
-
-            fillComboSwitch(ref cmbChoiceList, ref cmbChoice, allFlag);
-
-            switch (cmbChoice.Text)
+            if (radSong.Checked)
             {
-                case "Song":
-                    btnSearch.Text = "Find Songs by Title";
-                    break;
-                case "Artist":
-                    btnSearch.Text = "Find Songs by Artist";
-                    break;
-                case "Album":
-                    btnSearch.Text = "Find Songs by Album";
-                    break;
-                case "Genre":
-                    btnSearch.Text = "Find Songs by Genre";
-                    break;
-                default:
-                    break;
+                cmbFilter.Items.Clear();
+                bool allFlag = false;
+                if (cmbChoice.Text == "Song")
+                    allFlag = true;
+
+                fillComboSwitch(ref cmbFilter, ref cmbChoice, allFlag);
+                SongSearchFormChange();
+            }
+            else if (radAlbum.Checked)
+            {
+                cmbFilter.Items.Clear();
+                bool allFlag = false;
+                if (cmbChoice.Text == "Album")
+                    allFlag = true;
+
+                fillComboSwitch(ref cmbFilter, ref cmbChoice, allFlag);
+                AlbumSearchFormChange();
             }
 
+        }
+
+        private void radSong_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbLowRating.SelectedIndex = 0;
+            cmbHighRating.SelectedIndex = 5;
+
+            if (radSong.Checked)
+            {
+                List<string> choices = new List<string> { "Song", "Artist", "Album", "Genre" };
+                loadComboBox<string>(ref cmbChoice, choices, false);
+                cmbChoice.SelectedIndex = 0;
+                SongSearchFormChange();
+            }
+
+        }
+
+        private void radAlbum_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbLowRating.SelectedIndex = 0;
+            cmbHighRating.SelectedIndex = 5;
+
+            if (radAlbum.Checked)
+            {
+                List<string> choices = new List<string> { "Album", "Artist", "Genre" };
+                loadComboBox<string>(ref cmbChoice, choices, false);
+                cmbChoice.SelectedIndex = 0;
+                AlbumSearchFormChange();
+            }
         }
 
         #endregion
@@ -106,20 +100,6 @@ namespace CDCatalog
             {
                 cmbLowRating.Enabled = false;
                 cmbHighRating.Enabled = false;
-            }
-        }
-
-        private void chkAlbumRating_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkAlbumRating.Checked)
-            {
-                cmbAlbumHighRating.Enabled = true;
-                cmbAlbumLowRating.Enabled = true;
-            }
-            else if (chkAlbumRating.Checked == false)
-            {
-                cmbAlbumHighRating.Enabled = false;
-                cmbAlbumLowRating.Enabled = false;
             }
         }
 
@@ -211,14 +191,16 @@ namespace CDCatalog
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            List<Songs> songList = new Songs().Search(cmbChoice.Text, cmbChoiceList.Text, cmbLowRating.Text, cmbHighRating.Text, chkRating.Checked);
-             loadListBox<Songs>(ref lstSongSearch, songList);
-        }
-
-        private void btnAlbumSearch_Click(object sender, EventArgs e)
-        {
-            List<Album> albumList = new Album().Search(cmbAlbumSearch.Text, cmbAlbumChoice.Text, cmbAlbumLowRating.Text, cmbAlbumHighRating.Text, chkAlbumRating.Checked);
-            loadListBox<Album>(ref lstAlbumSearch, albumList);
+            if (radSong.Checked)
+            {
+                List<Songs> songList = new Songs().Search(cmbChoice.Text, cmbFilter.Text, cmbLowRating.Text, cmbHighRating.Text, chkRating.Checked);
+                loadListBox<Songs>(ref lstSearch, songList);
+            }
+            else if (radAlbum.Checked)
+            {
+                List<Album> albumList = new Album().Search(cmbChoice.Text, cmbFilter.Text, cmbLowRating.Text, cmbHighRating.Text, chkRating.Checked);
+                loadListBox<Album>(ref lstSearch, albumList);
+            }
         }
 
         private void btnPlayList_Click(object sender, EventArgs e)
@@ -255,35 +237,35 @@ namespace CDCatalog
             }
         }
 
-        private void fillComboSwitch(ref ComboBox cmbList, ref ComboBox cmbChoice, bool allFlag = false)
+        private void fillComboSwitch(ref ComboBox cmbFilter, ref ComboBox cmbChoice, bool allFlag = false)
         {
-            cmbList.Items.Clear();
+            cmbFilter.Items.Clear();
             using (CDCatalogEntities context = new CDCatalogEntities())
             {
                 switch (cmbChoice.Text)
                 {
                     case "Song":
-                        loadComboBox<Songs>(ref cmbList, context.Songs1.ToList(), allFlag);
-                        cmbList.DisplayMember = "Title";
+                        loadComboBox<Songs>(ref cmbFilter, context.Songs1.ToList(), allFlag);
+                        cmbFilter.DisplayMember = "Title";
                         break;
                     case "Artist":
-                        loadComboBox<Artist>(ref cmbList, context.Artists.ToList(), allFlag);
-                        cmbList.DisplayMember = "Artist1";
+                        loadComboBox<Artist>(ref cmbFilter, context.Artists.ToList(), allFlag);
+                        cmbFilter.DisplayMember = "Artist1";
                         break;
                     case "Album":
-                        loadComboBox<Album>(ref cmbList, context.Albums.ToList(), allFlag);
-                        cmbList.DisplayMember = "Title";
+                        loadComboBox<Album>(ref cmbFilter, context.Albums.ToList(), allFlag);
+                        cmbFilter.DisplayMember = "Title";
                         break;
                     case "Genre":
-                        loadComboBox<Genre>(ref cmbList, context.Genres.ToList(), allFlag);
-                        cmbList.DisplayMember = "Genre1";
+                        loadComboBox<Genre>(ref cmbFilter, context.Genres.ToList(), allFlag);
+                        cmbFilter.DisplayMember = "Genre1";
                         break;
                     default:
                         break;
                 }
             }
 
-            cmbList.SelectedIndex = 0;
+            cmbFilter.SelectedIndex = 0;
         }
 
         public void addAlbumToDB(string albumTitle, string albumArtist, int albumYear, string albumGenre, int albumRating)
@@ -331,7 +313,50 @@ namespace CDCatalog
             lstPlayList.Items.Add("Total Time: " + totalMinutes + ":" + totalSeconds);
         }
 
-        #endregion
+        private void AlbumSearchFormChange()
+        {
 
+            switch (cmbChoice.Text)
+            {
+                case "Album":
+                    if (cmbFilter.Text == "All")
+                        btnSearch.Text = "Find Albums by Rating";
+                    else
+                        btnSearch.Text = "Find Albums by Title";
+                    break;
+                case "Artist":
+                    btnSearch.Text = "Find Albums by Artist";
+                    break;
+                case "Genre":
+                    btnSearch.Text = "Find Albums by Genre";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SongSearchFormChange()
+        {
+
+            switch (cmbChoice.Text)
+            {
+                case "Song":
+                    btnSearch.Text = "Find Songs by Title";
+                    break;
+                case "Artist":
+                    btnSearch.Text = "Find Songs by Artist";
+                    break;
+                case "Album":
+                    btnSearch.Text = "Find Songs by Album";
+                    break;
+                case "Genre":
+                    btnSearch.Text = "Find Songs by Genre";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion
     }
 }
