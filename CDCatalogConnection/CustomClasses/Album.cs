@@ -57,5 +57,43 @@ namespace CDCatalogConnection
 
             }
         }
+
+        public List<Album> Search(string choice, string filter, string lowRating, string highRating, bool rating)
+        {
+            using (CDCatalogEntities context = new CDCatalogEntities())
+            {
+                int id = 0;
+                List<Album> albumSearch = new List<Album>();
+                int albumLowRating = 0;
+                int albumHighRating = 5;
+
+                if (rating)
+                {
+                    int.TryParse(lowRating, out albumLowRating);
+                    int.TryParse(highRating, out albumHighRating);
+                }
+                switch (choice)
+                {
+                    case "Album":
+                        if (filter == "All")
+                            albumSearch = context.Albums.Where(al => (al.Rating >= albumLowRating && al.Rating <= albumHighRating)).ToList();
+                        else
+                            albumSearch = context.Albums.Where(al => al.Title == filter && (al.Rating >= albumLowRating && al.Rating <= albumHighRating)).ToList();
+                        break;
+                    case "Artist":
+                        id = new Artist().ArtistCheck(filter);
+                        albumSearch = context.Albums.Where(al => al.ArtistID == id && (al.Rating >= albumLowRating && al.Rating <= albumHighRating)).ToList();
+                        break;
+                    case "Genre":
+                        id = new Genre().GenreCheck(filter);
+                        albumSearch = context.Albums.Where(al => al.GenreID == id && (al.Rating >= albumLowRating && al.Rating <= albumHighRating)).ToList();
+                        break;
+                    default:
+                        break;
+                }
+
+                return albumSearch;
+            }
+        }
     }
 }

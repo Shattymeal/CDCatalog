@@ -44,5 +44,48 @@ namespace CDCatalogConnection
                 
             }
         }
+
+        public List<Songs> Search(string choice, string filter, string lowRating, string highRating, bool rating)
+        {
+            List<Songs> searchList = new List<Songs>();
+            int id = 0;
+            int lowSongRating = 0;
+            int highSongRating = 5;
+
+            if (rating)
+            {
+                int.TryParse(lowRating, out lowSongRating);
+                int.TryParse(highRating, out highSongRating);
+            }
+
+            using (CDCatalogEntities context = new CDCatalogEntities())
+            {
+                switch (choice)
+                {
+                    case "Song":
+                        if (filter == "All")
+                            searchList = context.Songs1.Where(s => (s.Rating <= highSongRating && s.Rating >= lowSongRating)).ToList();
+                        else
+                            searchList = context.Songs1.Where(s => s.Title == filter && (s.Rating >= lowSongRating && s.Rating <= highSongRating)).ToList();
+                        break;
+                    case "Artist":
+                        id = new Artist().ArtistCheck(filter);
+                        searchList = context.Songs1.Where(s => s.ArtistID == id && (s.Rating >= lowSongRating && s.Rating <= highSongRating)).ToList();
+                        break;
+                    case "Album":
+                        id = new Album().AlbumCheck(filter);
+                        searchList = context.Songs1.Where(s => s.AlbumID == id && (s.Rating >= lowSongRating && s.Rating <= highSongRating)).ToList();
+                        break;
+                    case "Genre":
+                        id = new Genre().GenreCheck(filter);
+                        searchList = context.Songs1.Where(s => s.GenreID == id && (s.Rating >= lowSongRating && s.Rating <= highSongRating)).ToList();
+                        break;
+                    default:
+                        break;
+                }
+
+                return searchList;
+            }
+        }
     }
 }
