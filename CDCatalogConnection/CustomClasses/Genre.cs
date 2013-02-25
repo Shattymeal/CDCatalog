@@ -8,10 +8,11 @@ namespace CDCatalogConnection
 {
     partial class Genre
     {
-        public int GenreCheck(string genreName)
+        public int GenreCheck(string genre)
         {
             using (CDCatalogEntities context = new CDCatalogEntities())
             {
+                string genreName = genre;
                 //Genre Where clause that finds any genre with the name
                 List<Genre> GenreToFind = context.Genres.Where(g => g.Genre1.ToUpper() == genreName.ToUpper()).ToList();
 

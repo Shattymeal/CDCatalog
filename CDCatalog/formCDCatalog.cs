@@ -110,7 +110,7 @@ namespace CDCatalog
                 cmbAlbumTitle.Enabled = false;
                 txtTrackNumber.Enabled = false;
                 txtTrackNumber.Text = trackNumber.ToString();
-                txtYear.Enabled = false;
+                txtAlbumYear.Enabled = false;
                 cmbAlbumGenre.Enabled = false;
                 txtAlbumRating.Enabled = false;
             }
@@ -119,7 +119,7 @@ namespace CDCatalog
                 cmbAlbumTitle.Enabled = true;
                 txtTrackNumber.Enabled = true;
                 txtTrackNumber.Text = trackNumber.ToString();
-                txtYear.Enabled = true;
+                txtAlbumYear.Enabled = true;
                 cmbAlbumGenre.Enabled = true;
                 txtAlbumRating.Enabled = true;
             }
@@ -131,62 +131,7 @@ namespace CDCatalog
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            #region Member Variables
-            int songTrackLength;
-            int songRating;
-            int albumRating;
-            int year;
-            #endregion
-
-            #region Validating Blocks
-            if (!(int.TryParse(txtYear.Text, out year)))
-            {
-                MessageBox.Show("The Year " + txtYear.Text + " was not a valid, please try again");
-                return;
-            }
-
-            if (!(int.TryParse(txtLength.Text, out songTrackLength)))
-            {
-                MessageBox.Show("The Length " + txtLength.Text + " was not valid, please try again");
-                return;
-            }
-
-            int.TryParse(txtSongRating.Text, out songRating);
-            if (songRating < 0 || songRating >= 5)
-            {
-                MessageBox.Show("The song rating of " + txtSongRating.Text + " was not valid or out of range, please try again");
-                return;
-            }
-
-            int.TryParse(txtAlbumRating.Text, out albumRating);
-            if (albumRating < 0 || songRating >= 5)
-            {
-                MessageBox.Show("The album rating of " + txtAlbumRating.Text + " was not valid or out of range, please try again");
-                return;
-            }
-
-            if (!(int.TryParse(txtTrackNumber.Text, out trackNumber)))
-            {
-                MessageBox.Show("The track number of " + txtTrackNumber.Text + " is not valid, please try again");
-                return;
-            }
-
-            #endregion
-
-            if (chkAlbum.Checked)
-            {
-                addAlbumToDB(cmbAlbumTitle.Text, cmbArtist.Text, year, cmbAlbumGenre.Text, albumRating);
-            }
-
-            addSongToDB(txtSongTitle.Text, cmbArtist.Text, cmbAlbumTitle.Text, cmbSongGenre.Text, trackNumber, songTrackLength, songRating);
-
-            if (chkAlbum.Checked)
-                trackNumber++;
-
-            txtTrackNumber.Text = trackNumber.ToString();
-            initialLoad();
-
-            MessageBox.Show("Your song has been successfully added");
+            AddToDatabase();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -211,6 +156,72 @@ namespace CDCatalog
         #endregion
 
         #region Form Methods
+
+        private void AddToDatabase()
+        {
+            #region Member Variables
+            int songTrackLength;
+            int songRating;
+            int albumRating;
+            int albumYear = 0;
+            #endregion
+
+            #region Validating Blocks
+            if (chkAlbum.Checked)
+            {
+                if (!(int.TryParse(txtAlbumYear.Text, out albumYear)))
+                {
+                    MessageBox.Show("The Year " + txtAlbumYear.Text + " was not a valid, please try again");
+                    return;
+                }
+            }
+
+            if (!(int.TryParse(txtLength.Text, out songTrackLength)))
+            {
+                MessageBox.Show("The Length " + txtLength.Text + " was not valid, please try again");
+                return;
+            }
+
+            int.TryParse(txtSongRating.Text, out songRating);
+            if (songRating < 0 || songRating > 5)
+            {
+                MessageBox.Show("The song rating of " + txtSongRating.Text + " was not valid or out of range, please try again");
+                return;
+            }
+
+            int.TryParse(txtAlbumRating.Text, out albumRating);
+            if (albumRating < 0 || songRating > 5)
+            {
+                MessageBox.Show("The album rating of " + txtAlbumRating.Text + " was not valid or out of range, please try again");
+                return;
+            }
+
+            if (!(int.TryParse(txtTrackNumber.Text, out trackNumber)))
+            {
+                MessageBox.Show("The track number of " + txtTrackNumber.Text + " is not valid, please try again");
+                return;
+            }
+
+            #endregion
+
+            if (chkAlbum.Checked)
+            {
+                addAlbumToDB(cmbAlbumTitle.Text, cmbArtist.Text, albumYear, cmbAlbumGenre.Text, albumRating);
+                addSongToDB(txtSongTitle.Text, cmbArtist.Text, cmbAlbumTitle.Text, cmbSongGenre.Text, trackNumber, songTrackLength, songRating);
+            }
+            else
+            {
+                addSongToDB(txtSongTitle.Text, cmbArtist.Text, "", cmbSongGenre.Text, trackNumber, songTrackLength, songRating);
+            }
+
+            if (chkAlbum.Checked)
+                trackNumber++;
+
+            txtTrackNumber.Text = trackNumber.ToString();
+            initialLoad();
+
+            MessageBox.Show("Your song has been successfully added");
+        }
 
         private void loadComboBox<T>(ref ComboBox cmb, List<T> list, bool allFlag = false)
         {
@@ -304,13 +315,13 @@ namespace CDCatalog
                 int minutes = songToAdd.TrackLength / 60;
                 int seconds = songToAdd.TrackLength - 60 * minutes;
 
-                lstPlayList.Items.Add(songToAdd.Title + " " + minutes + ":" + seconds);
+                lstPlayList.Items.Add( "[" + minutes + ":" + seconds + "] " + songToAdd.Title );
             }
 
             int totalMinutes = pl.playtime.Sum() / 60;
             int totalSeconds = pl.playtime.Sum() - 60 * totalMinutes;
 
-            lstPlayList.Items.Add("Total Time: " + totalMinutes + ":" + totalSeconds);
+            lstPlayList.Items.Add("[" + totalMinutes + ":" + totalSeconds + "] " + "Total Time");
         }
 
         private void AlbumSearchFormChange()

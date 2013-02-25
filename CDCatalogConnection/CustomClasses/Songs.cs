@@ -8,7 +8,7 @@ namespace CDCatalogConnection
 {
     partial class Songs
     {
-        public int SongCheck(string songTitle, string songArtist, string songAlbum = null, string songGenre = null, int songTrackNumer = 1, int songTrackLength = 1, int songRating = 0)
+        public int SongCheck(string songTitle, string songArtist, string songAlbum, string songGenre , int songTrackNumer = 1, int songTrackLength = 1, int songRating = 0)
         {
             using(CDCatalogEntities context = new CDCatalogEntities())
             {

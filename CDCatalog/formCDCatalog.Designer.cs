@@ -33,7 +33,7 @@
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtAlbumRating = new System.Windows.Forms.TextBox();
             this.cmbAlbumGenre = new System.Windows.Forms.ComboBox();
-            this.txtYear = new System.Windows.Forms.TextBox();
+            this.txtAlbumYear = new System.Windows.Forms.TextBox();
             this.txtTrackNumber = new System.Windows.Forms.TextBox();
             this.txtSongRating = new System.Windows.Forms.TextBox();
             this.txtLength = new System.Windows.Forms.TextBox();
@@ -77,7 +77,7 @@
             this.groupBox1.Controls.Add(this.btnSubmit);
             this.groupBox1.Controls.Add(this.txtAlbumRating);
             this.groupBox1.Controls.Add(this.cmbAlbumGenre);
-            this.groupBox1.Controls.Add(this.txtYear);
+            this.groupBox1.Controls.Add(this.txtAlbumYear);
             this.groupBox1.Controls.Add(this.txtTrackNumber);
             this.groupBox1.Controls.Add(this.txtSongRating);
             this.groupBox1.Controls.Add(this.txtLength);
@@ -141,12 +141,12 @@
             this.cmbAlbumGenre.Size = new System.Drawing.Size(121, 24);
             this.cmbAlbumGenre.TabIndex = 20;
             // 
-            // txtYear
+            // txtAlbumYear
             // 
-            this.txtYear.Location = new System.Drawing.Point(118, 325);
-            this.txtYear.Name = "txtYear";
-            this.txtYear.Size = new System.Drawing.Size(100, 22);
-            this.txtYear.TabIndex = 19;
+            this.txtAlbumYear.Location = new System.Drawing.Point(118, 325);
+            this.txtAlbumYear.Name = "txtAlbumYear";
+            this.txtAlbumYear.Size = new System.Drawing.Size(100, 22);
+            this.txtAlbumYear.TabIndex = 19;
             // 
             // txtTrackNumber
             // 
@@ -158,7 +158,7 @@
             // 
             // txtSongRating
             // 
-            this.txtSongRating.Location = new System.Drawing.Point(118, 171);
+            this.txtSongRating.Location = new System.Drawing.Point(119, 165);
             this.txtSongRating.Name = "txtSongRating";
             this.txtSongRating.Size = new System.Drawing.Size(100, 22);
             this.txtSongRating.TabIndex = 16;
@@ -222,9 +222,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(16, 330);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(42, 17);
+            this.label9.Size = new System.Drawing.Size(85, 17);
             this.label9.TabIndex = 9;
-            this.label9.Text = "Year:";
+            this.label9.Text = "Album Year:";
             // 
             // label8
             // 
@@ -251,7 +251,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 176);
+            this.label7.Location = new System.Drawing.Point(16, 170);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 17);
             this.label7.TabIndex = 6;
@@ -260,7 +260,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 135);
+            this.label6.Location = new System.Drawing.Point(16, 135);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 17);
             this.label6.TabIndex = 5;
@@ -512,7 +512,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtAlbumRating;
         private System.Windows.Forms.ComboBox cmbAlbumGenre;
-        private System.Windows.Forms.TextBox txtYear;
+        private System.Windows.Forms.TextBox txtAlbumYear;
         private System.Windows.Forms.TextBox txtTrackNumber;
         private System.Windows.Forms.TextBox txtSongRating;
         private System.Windows.Forms.TextBox txtLength;
