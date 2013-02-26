@@ -207,11 +207,11 @@ namespace CDCatalog
             if (chkAlbum.Checked)
             {
                 addAlbumToDB(cmbAlbumTitle.Text, cmbArtist.Text, albumYear, cmbAlbumGenre.Text, albumRating);
-                addSongToDB(txtSongTitle.Text, cmbArtist.Text, cmbAlbumTitle.Text, cmbSongGenre.Text, trackNumber, songTrackLength, songRating);
+                addSongToDB(txtSongTitle.Text, cmbArtist.Text, cmbAlbumTitle.Text, cmbSongGenre.Text, trackNumber, songTrackLength, songRating, true);
             }
             else
             {
-                addSongToDB(txtSongTitle.Text, cmbArtist.Text, "", cmbSongGenre.Text, trackNumber, songTrackLength, songRating);
+                addSongToDB(txtSongTitle.Text, cmbArtist.Text, "", cmbSongGenre.Text, trackNumber, songTrackLength, songRating, false);
             }
 
             if (chkAlbum.Checked)
@@ -286,10 +286,10 @@ namespace CDCatalog
             MessageBox.Show("The Following Album " + cmbAlbumTitle.Text + " was added with ID " + ID);
         }
 
-        public void addSongToDB(string songTitle, string songArtist, string songAlbum, string songGenre, int songTrackNumber, int songTrackLength, int songRating)
+        public void addSongToDB(string songTitle, string songArtist, string songAlbum, string songGenre, int songTrackNumber, int songTrackLength, int songRating, bool album)
         {
             Songs newSong = new Songs();
-            int ID = newSong.SongCheck(songTitle, songArtist, songAlbum, songGenre, songTrackNumber, songTrackLength, songRating);
+            int ID = newSong.SongCheck(songTitle, songArtist, songAlbum, songGenre, songTrackNumber, songTrackLength, songRating, album);
             MessageBox.Show("The Following Song " + txtSongTitle.Text + " was added with ID " + ID);
         }
 
